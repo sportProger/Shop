@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap');
+
+html, body {
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+html {
+    font-size: 16px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 40px;
+    font-family: 'Rubik', sans-serif;
+}
+
+.main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    padding: 0 30px;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.item-info,
+.cards {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+}
+
+.item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    border-bottom: solid 2px #333;
+    padding-bottom: 10px;
+}
+
+.item__data {
+    margin-left: 10px;
+}
+
+.card {
+    display: flex;
+    column-gap: 30px;
+    align-items: flex-end;
+}
+
+.card__img {
+    width: 70px;
+    height: 70px;
+    border: solid 2px #333;
+}
+
+.item__description {
+    max-width: 20%;
+    color: #333;
+    line-height: 1.3;
+    text-align: center;
+}
+
+.buttons {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+
+/*.btn {*/
+/*    width: 200px;*/
+/*    height: 50px;*/
+/*    font-size: 1rem;*/
+/*    padding: 10px;*/
+/*    border: solid 2px #333;*/
+/*    background: transparent;*/
+/*    color: #333;*/
+/*    transition: .3s;*/
+/*    margin-top: 30px;*/
+/*}*/
+
+/*.btn:hover {*/
+/*    background-color: #6671d1;*/
+/*    color: #fafafa;*/
+/*    border: solid 2px #6671d1;*/
+/*}*/
+
+.btn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    margin-top: 30px;
+}
+
+#print-btn {
+    background: url("../images/print.png") center / cover no-repeat;
+}
+
+#archive-btn {
+    background: url("../images/archive.png") center / cover no-repeat;
+}
+
+#exit {
+    background: url("../images/back.png") center / cover no-repeat;
+}
+
+@media screen and (max-width: 769px) {
+    .main {
+        padding: 0;
+    }
+    .buttons {
+        width: 70%;
+        justify-content: space-between;
+    }
+    .item-info {
+        width: 70%
+    }
+}
+
+@media screen and (max-width: 426px) {
+    .item-info, .buttons {
+        width: 100%;
+    }
+    .buttons {
+        column-gap: 30px;
+    }
+}

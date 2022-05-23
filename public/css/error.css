@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap');
+
+/*подключаем шрифт rubik*/
+
+body, html {
+    width: 100%;
+    height: 100%;
+}
+/*растягиваем элементы body и html по ширине и высоте*/
+
+html {
+    font-size: 16px;
+}
+/*указываем размер шрифта 16px=1rem*/
+
+body {
+    font-family: 'Rubik', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 20px;
+}
+/*выравниваем содержимое к тега по центру указываем отступ между двумя колонками 20px*/
+
+.title {
+    font-size: 2rem;
+}
+/*указываем размер 2rem=32px*/
+
+.sub-title {
+    font-size: 1.5rem;
+}
+/*указываем размер 1.5rem=24px*/
