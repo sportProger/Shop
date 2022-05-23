@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+<!--  устанавливаем кодировку UTF-8-->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!--  указываем что сайт может быть адаптивным -->
+  <title><%= title %></title>
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/style.css" />
+<!--  подключаем css файлы-->
+</head>
+<body>
+<main class="main">
+  <p class="main__title">Авторизация пользователя</p>
+<!--  указываем заголовок -->
+    <div class="item">
+      <label for="ip" class="item__title">Номер ИП</label>
+      <input type="text" class="item__input" id="ip" />
+    </div>
+<!--  создаем контейнер в котором лежит Input(поле ввода) и labil прекрепленный к нему-->
+    <div class="item">
+      <label for="password" class="item__title">Пароль</label>
+      <input type="password" class="item__input" id="password" />
+    </div>
+    <button class="btn" id="enter">Войти</button>
+</main>
+<script src="js/send.js" defer></script>
+<!--подключили скприпт поставили ему атрибут defer для того чтобы он инициализировался в конце-->
+</body>
+</html>

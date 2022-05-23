@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+<div class="tab">
+    <button class="tab__links active">Актуальные</button>
+    <button class="tab__links">Не актуальные</button>
+    <button class="tab__links tab__links-no">Все</button>
+</div>
+
+<div class="titles">
+    <p class="titles__text">Номер заказа</p>
+    <p class="titles__text">Дата заказа</p>
+    <p class="titles__text">Статус</p>
+</div>
+
+<div id="actual" class="tab-content" style="display: block;">
+
+</div>
+
+<div id="not-actual" class="tab-content">
+
+</div>
+
+<div id="all" class="tab-content">
+</div>
+
+<div class="buttons">
+    <button class="btn" id="exit">Выход</button>
+    <button class="btn" id="view-archive">Смотреть архив</button>
+</div>
+<script src="js/main.js" defer></script>
+</body>
+</html>

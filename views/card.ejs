@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> <%= title %> </title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/item.css" />
+</head>
+<body>
+<h2 class="title">Основная информация</h2>
+<main class="main">
+    <div class="item-info">
+        <button class="btn" id="print-btn"></button>
+        <div class="item">
+            <p class="item__text">Номер заказа: </p>
+            <p class="item__data"><%= number %></p>
+        </div>
+        <div class="item">
+            <p class="item__text">Дата заказа: </p>
+            <p class="item__data"><%= date %></p>
+        </div>
+        <div class="item">
+            <p class="item__text">Статус: </p>
+            <p class="item__data"><%= status1 %></p>
+        </div>
+        <div class="item">
+            <p class="item__text">Имя клиента: </p>
+            <p class="item__data"><%= name %></p>
+        </div>
+        <div class="item">
+            <p class="item__text">Номер телефона: </p>
+            <p class="item__data"><%= phone %></p>
+        </div>
+        <div class="item">
+            <p class="item__text">Способ оплаты: </p>
+            <p class="item__data"><%= way %></p>
+        </div>
+        <div class="item">
+            <p class="item__text">Статус оплаты: </p>
+            <p class="item__data"><%= status2 %></p>
+        </div>
+        <div class="item" style="flex-direction: column;">
+            <p class="item__text">Описание: </p>
+            <br />
+            <p class="item__description" style="max-width: 80%!important;"><%= description %></p>
+        </div>
+        <div class="item">
+            <p class="item__text">Цена: </p>
+            <p class="item__data"><%= price %></p>
+        </div>
+    </div>
+        <div class="buttons">
+        <button class="btn" id="archive-btn"></button>
+        <button class="btn" id="exit"></button>
+    </div>
+</main>
+<script src="js/item.js" defer></script>
+</body>
+</html>
