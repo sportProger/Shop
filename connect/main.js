@@ -87,7 +87,7 @@ function generateIntegerExamples(from = 0, to = 10, count = 5) {
         function elementMouseUp() {
             itemFlag = false
             itemStyle(exampleLi, config.styles.deactivation)
-            activeItem = null
+            if(!isMobile()) activeItem = null
         }
 
         examplesList.appendChild(exampleLi)
@@ -178,6 +178,10 @@ function coordinateRecording() {
     }
 }
 
+function isMobile() {
+    return /Mobile|webOS|BlackBerry|IEMobile|MeeGo|mini|Fennec|Windows Phone|Android|iP(ad|od|hone)/i.test(navigator.userAgent);
+}
+
 function documentMouseMove(e) {
     if (activeItem !== undefined) {
         for (let i = 0; i <= examplesCords.length - 1; i++) {
@@ -187,20 +191,30 @@ function documentMouseMove(e) {
         }
     }
 
+    let clientX, clientY
+    if (isMobile()) {
+        clientX = e.touches[0].clientX
+        clientY = e.touches[0].clientY
+    }
+    else {
+        clientX = e.clientX
+        clientY = e.clientY
+    }
+
     for (let i = 0; i <= examplesCords.length - 1; i++) {
         if (paintFlag && itemFlag) {
             if (
-                e.clientX > activeCords.a2 ||
-                e.clientY > activeCords.a4 ||
-                e.clientY < activeCords.a3
-            ) paint(e.clientX, e.clientY, true)
+                clientX > activeCords.a2 ||
+                clientY > activeCords.a4 ||
+                clientY < activeCords.a3
+            ) paint(clientX, clientY, true)
 
             let item = answersCords[i]
             if (
-                e.clientX > item.cords.a1 &&
-                e.clientX < item.cords.a2 &&
-                e.clientY > item.cords.a3 &&
-                e.clientY < item.cords.a4
+                clientX > item.cords.a1 &&
+                clientX < item.cords.a2 &&
+                clientY > item.cords.a3 &&
+                clientY < item.cords.a4
             ) {
                 upFlag = true
                 globalI = i
@@ -216,6 +230,8 @@ function documentMouseUp() {
     clearCanvas()
     cords.push('mouseup')
 
+    console.log(globalItem, activeItem)
+
     if (upFlag === false) {
         cords = []
         itemStyle(activeItem, config.styles.deactivation)
@@ -229,6 +245,7 @@ function documentMouseUp() {
                 paint(cord[0], cord[1])
             })
 
+
             itemStyle(globalItem.elem, config.styles.activation)
             itemStyle(activeItem, config.styles.activation)
             setTimeout(() => {
@@ -241,6 +258,7 @@ function documentMouseUp() {
                 coordinateRecording()
                 trueAnswers++;
                 answersUpdate()
+                if(isMobile()) activeItem = null
             }, config.timeoutSpeed)
         }
         else {
@@ -261,13 +279,14 @@ function documentMouseUp() {
                 clearCanvas()
                 cords = []
                 coordinateRecording()
+                if(isMobile()) activeItem = null
             }, config.timeoutSpeed)
         }
     }
 }
 
 document.addEventListener('mouseup', () => documentMouseUp())
-document.addEventListener('touchend', () => documentMouseUp())
+document.addEventListener('touchend', () => { console.log('touchend'); documentMouseUp() })
 
 document.addEventListener('mousemove', e => documentMouseMove(e))
 document.addEventListener('touchmove', e => documentMouseMove(e))
