@@ -102,6 +102,26 @@ function generateIntegerExamples(from = 0, to = 10, count = 5) {
     answers.forEach(answer => answersList.appendChild(answer.value))
 }
 
+// function playSound(audioData) {
+//     let audioContext = new window.AudioContext
+//     let source = audioContext.createBufferSource()
+//     console.log(audioData, ' - audioData')
+//     audioContext.decodeAudioData(audioData, (buffer) => {
+//         source.buffer = buffer
+//         source.connect(audioContext.destination)
+//     }).then(r => console.log(r))
+//
+//     source.start()
+// }
+//
+// async function getBuffer(path) {
+//     let response = await fetch(path, {
+//         method: 'POST'
+//     })
+//
+//     return await response.arrayBuffer()
+// }
+
 function itemStyle(item, style = config.styles.activation) {
     switch (style) {
         case config.styles.activation:
@@ -245,6 +265,7 @@ function documentMouseUp() {
                 paint(cord[0], cord[1])
             })
 
+            let audio = new Audio('./sounds/trueAnswer.mp3').play()
 
             itemStyle(globalItem.elem, config.styles.activation)
             itemStyle(activeItem, config.styles.activation)
@@ -268,6 +289,8 @@ function documentMouseUp() {
             cords.forEach(cord => {
                 paint(cord[0], cord[1])
             })
+
+            let audio = new Audio('./sounds/falseAnswer.mp3').play()
 
             itemStyle(globalItem.elem, config.styles.reactivation)
             itemStyle(activeItem, config.styles.reactivation)
