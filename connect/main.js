@@ -226,8 +226,7 @@ function documentMouseMove(e) {
         clientX = e.clientX
         clientY = e.clientY
     }
-    console.log(paintFlag, ' - paintFlag', itemFlag, ' - itemFlag')
-    console.log(examplesCords)
+
     for (let i = 0; i <= examplesCords.length - 1; i++) {
         console.log(paintFlag, ' - paintFlag2', itemFlag, ' - itemFlag2')
         if (paintFlag && itemFlag) {
