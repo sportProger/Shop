@@ -9,15 +9,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@300;400;500&family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <div class="list-container">
-        <ul class="list" id="examples-list"></ul>
-        <ul class="list" id="answers-list"></ul>
+    <div class="loader">
+        <h1 class="ml3">SPAKNORT</h1>
     </div>
-    <h2 id="results"></h2>
-    <canvas id="canvas"></canvas>
-    <script src="main.js" defer></script>
+    <main>
+        <h1 class="good good_hide">Cool!</h1>
+        <div class="list-container">
+            <ul class="list" id="examples-list"></ul>
+            <ul class="list" id="answers-list"></ul>
+        </div>
+        <h2 id="results"></h2>
+        <canvas id="canvas"></canvas>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js" defer></script>
+    <script src="assets/js/main.js" defer></script>
 </body>
 </html>
