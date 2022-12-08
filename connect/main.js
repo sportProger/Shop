@@ -34,7 +34,10 @@ let
         timeoutSpeed: 1500,
         numberOfExamples: 5,
         endTime: 4000,
-        loaderTime: 3000
+        loaderTime: 3000,
+        themeDataBase: null,
+        numberOfExamplesDataBase: null,
+        soundsDataBase: null
     }
 
 canvas.width    = window.innerWidth
@@ -61,6 +64,8 @@ anime.timeline({loop: true})
     delay: config.loaderTime
 })
 
+getAllOfDataBase()
+
 setTimeout(() => {
     zeroing()
     generateIntegerExamples(-10, 10, config.numberOfExamples)
@@ -69,6 +74,41 @@ setTimeout(() => {
     loader.style.opacity = '0'
     loader.style.zIndex  = '0'
 }, config.loaderTime)
+
+
+// function connectToDataBase() {
+//     let settingsData = {
+//         theme: 'standard',
+//         sounds: true,
+//         numberOfExamples: 2
+//     }
+//     fetch('https://mathpt-a7d23-default-rtdb.firebaseio.com/data.json', {
+//         mode: 'no-cors',
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json;charset=utf-8'
+//         },
+//         body: JSON.stringify(settingsData)
+//     })
+// }
+
+function getAllOfDataBase() {
+    fetch('https://mathpt-a7d23-default-rtdb.firebaseio.com/data.json', {
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        method: 'GET'
+    }).then(response => {
+        let res = response.json()
+        res.then(result => {
+            let key
+            for (const elemResult in result) { key = elemResult }
+            config.themeDataBase = result[key].theme
+            config.numberOfExamplesDataBase = result[key].numberOfExamples
+            config.soundsDataBase = result[key].sounds
+        })
+    })
+}
 
 function random(min, max) {
     min = Math.ceil(min)
@@ -226,9 +266,7 @@ function documentMouseMove(e) {
         clientX = e.clientX
         clientY = e.clientY
     }
-
     for (let i = 0; i <= examplesCords.length - 1; i++) {
-        console.log(paintFlag, ' - paintFlag2', itemFlag, ' - itemFlag2')
         if (paintFlag && itemFlag) {
             console.log(activeCords.a2, activeCords.a3)
 
@@ -272,7 +310,7 @@ function documentMouseUp() {
                 paint(cord[0], cord[1])
             })
 
-            let audio = new Audio('./trueAnswer.mp3').play()
+            if(config.soundsDataBase) let audio = new Audio('./sounds/trueAnswer.mp3').play()
 
             itemStyle(globalItem.elem, config.styles.activation)
             itemStyle(activeItem, config.styles.activation)
@@ -298,7 +336,7 @@ function documentMouseUp() {
                 paint(cord[0], cord[1])
             })
 
-            let audio = new Audio('./falseAnswer.mp3').play()
+            if(config.soundsDataBase) let audio = new Audio('./sounds/falseAnswer.mp3').play()
 
             itemStyle(globalItem.elem, config.styles.reactivation)
             itemStyle(activeItem, config.styles.reactivation)
