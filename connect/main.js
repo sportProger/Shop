@@ -12,6 +12,8 @@ let
     examplesList  = document.getElementById('examples-list'),
     answersList   = document.getElementById('answers-list'),
     resultsElem   = document.getElementById('results'),
+    loader        = document.querySelector('.loader'),
+    textWrapper   = document.querySelector('.ml3'),
     answersCords  = [],
     examplesCords = [],
     cords         = [],
@@ -30,7 +32,9 @@ let
             reactivation: 'reactivation', // red
         },
         timeoutSpeed: 1500,
-        numberOfExamples: 5
+        numberOfExamples: 5,
+        endTime: 4000,
+        loaderTime: 3000
     }
 
 canvas.width    = window.innerWidth
@@ -40,9 +44,31 @@ ctx.fillStyle   = config.lineColor
 ctx.strokeStyle = config.lineColor
 ctx.lineWidth   = config.lineWidth
 
-generateIntegerExamples(-10, 10, config.numberOfExamples)
-coordinateRecording()
-answersUpdate()
+textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+anime.timeline({loop: true})
+    .add({
+        targets: '.ml3 .letter',
+        opacity: [0,1],
+        easing: "easeInOutQuad",
+        duration: 2250,
+        delay: (el, i) => 150 * (i+1)
+    }).add({
+    targets: '.ml3',
+    opacity: 0,
+    duration: 1000,
+    easing: "easeOutExpo",
+    delay: config.loaderTime
+})
+
+setTimeout(() => {
+    zeroing()
+    generateIntegerExamples(-10, 10, config.numberOfExamples)
+    coordinateRecording()
+    answersUpdate()
+    loader.style.opacity = '0'
+    loader.style.zIndex  = '0'
+}, config.loaderTime)
 
 function random(min, max) {
     min = Math.ceil(min)
@@ -101,26 +127,6 @@ function generateIntegerExamples(from = 0, to = 10, count = 5) {
     answers.sort((a, b) => a.id > b.id ? 1: -1)
     answers.forEach(answer => answersList.appendChild(answer.value))
 }
-
-// function playSound(audioData) {
-//     let audioContext = new window.AudioContext
-//     let source = audioContext.createBufferSource()
-//     console.log(audioData, ' - audioData')
-//     audioContext.decodeAudioData(audioData, (buffer) => {
-//         source.buffer = buffer
-//         source.connect(audioContext.destination)
-//     }).then(r => console.log(r))
-//
-//     source.start()
-// }
-//
-// async function getBuffer(path) {
-//     let response = await fetch(path, {
-//         method: 'POST'
-//     })
-//
-//     return await response.arrayBuffer()
-// }
 
 function itemStyle(item, style = config.styles.activation) {
     switch (style) {
@@ -220,9 +226,13 @@ function documentMouseMove(e) {
         clientX = e.clientX
         clientY = e.clientY
     }
-
+    console.log(paintFlag, ' - paintFlag', itemFlag, ' - itemFlag')
+    console.log(examplesCords)
     for (let i = 0; i <= examplesCords.length - 1; i++) {
+        console.log(paintFlag, ' - paintFlag2', itemFlag, ' - itemFlag2')
         if (paintFlag && itemFlag) {
+            console.log(activeCords.a2, activeCords.a3)
+
             if (
                 clientX > activeCords.a2 ||
                 clientY > activeCords.a4 ||
@@ -249,8 +259,6 @@ function documentMouseUp() {
     paintFlag = false
     clearCanvas()
     cords.push('mouseup')
-
-    console.log(globalItem, activeItem)
 
     if (upFlag === false) {
         cords = []
@@ -279,6 +287,7 @@ function documentMouseUp() {
                 coordinateRecording()
                 trueAnswers++;
                 answersUpdate()
+                checkNumberOfExamples()
                 if(isMobile()) activeItem = null
             }, config.timeoutSpeed)
         }
@@ -308,8 +317,237 @@ function documentMouseUp() {
     }
 }
 
+function zeroing() {
+    paintFlag     = false
+    itemFlag      = false
+    upFlag        = false
+    trueAnswers   = 0
+    globalI       = undefined
+    globalItem    = undefined
+    activeItem    = undefined
+    activeCords   = undefined
+    answersCords  = []
+    examplesCords = []
+    cords         = []
+    ctx.fillStyle = config.lineColor
+    ctx.strokeStyle = config.lineColor
+    ctx.lineWidth = config.lineWidth
+}
+
+const rndColor = () => {
+    const base  = Math.random() * 360 | 0
+    const color = (275 * (base / 200 | 0)) + base % 200
+    return fac => `hsl(${color}, ${(fac || 1) * 100}%, ${(fac || 1) * 60}%)`
+}
+
+function checkNumberOfExamples() {
+    if (trueAnswers === config.numberOfExamples) {
+        let a = new Fireworks()
+        a.run()
+
+        let good = document.querySelector('.good')
+        good.classList.replace('good_hide', 'good_show')
+
+        setTimeout(() => {
+            a.stop()
+            good.classList.replace('good_show', 'good_hide')
+
+            ctx.beginPath()
+            zeroing()
+            clearCanvas()
+            generateIntegerExamples(-10, 10, config.numberOfExamples)
+            coordinateRecording()
+            answersUpdate()
+        }, config.endTime)
+    }
+}
+
+class Battery
+{
+    constructor(fireworks) {
+        this.fireworks = fireworks
+        this.salve = []
+        this.x     = Math.random()
+        this.t     = 0
+        this.tmod  = 20 + Math.random() * 20 | 0
+        this.tmax  = 500 + Math.random() * 1000
+
+        this._shot = salve => {
+            if (salve.y < salve.ym) {
+                salve.cb = this._prepareExplosion
+            }
+
+            salve.x += salve.mx
+            salve.y -= 0.01
+
+            const r = Math.atan2(-0.01, salve.mx)
+
+            this.fireworks.engine.strokeStyle = salve.c(.7)
+            this.fireworks.engine.beginPath()
+
+            this.fireworks.engine.moveTo(
+                (this.x + salve.x) * this.fireworks.width + Math.cos(r) * 4,
+                salve.y * this.fireworks.height + Math.sin(r) * 4
+            )
+
+            this.fireworks.engine.lineTo(
+                (this.x + salve.x) * this.fireworks.width + Math.cos(r + Math.PI) * 4,
+                salve.y * this.fireworks.height + Math.sin(r + Math.PI) * 4
+            )
+
+            this.fireworks.engine.lineWidth = 3
+            this.fireworks.engine.stroke()
+
+        };
+
+        this._prepareExplosion = salve => {
+            salve.explosion = []
+
+            for (let i = 0, max = 32; i < max; i++) {
+                salve.explosion.push({
+                    r : 2 * i / Math.PI,
+                    s : 1 + Math.random() * 0.5,
+                    d : 0,
+                    y : 0
+                })
+            }
+
+            salve.cb = this._explode
+        };
+
+        this._explode = salve => {
+
+            this.fireworks.engine.fillStyle = salve.c()
+
+            salve.explosion.forEach(explo => {
+
+                explo.d += explo.s
+                explo.s *= 0.99
+                explo.y += 0.5
+
+                const alpha = explo.s * 2.5
+                this.fireworks.engine.globalAlpha = alpha
+
+                if (alpha < 0.05) {
+                    salve.cb = null
+                }
+
+                this.fireworks.engine.fillRect(
+                    Math.cos(explo.r) * explo.d + (this.x + salve.x) * this.fireworks.width,
+                    Math.sin(explo.r) * explo.d + explo.y + salve.y * this.fireworks.height,
+                    3,
+                    3
+                )
+            })
+
+            this.fireworks.engine.globalAlpha = 1
+        }
+    }
+
+    pushSalve() {
+        this.salve.push({
+            x: 0,
+            mx: -0.02 * Math.random() * 0.04,
+            y: 1,
+            ym: 0.05 + Math.random() * 0.5,
+            c: rndColor(),
+            cb: this._shot
+        })
+    }
+
+    render() {
+
+        this.t++
+
+        if (this.t < this.tmax && (this.t % this.tmod) === 0) {
+            this.pushSalve()
+        }
+
+        let rendered = false
+
+        this.salve.forEach(salve => {
+
+            if (salve.cb) {
+                rendered = true
+                salve.cb(salve)
+            }
+
+        })
+
+        if (this.t > this.tmax) {
+            return rendered
+        }
+
+        return true
+    }
+}
+
+class Fireworks
+{
+    constructor() {
+        this.canvas = canvas
+        this.engine = ctx
+        this.stacks = new Map()
+        this.handler
+
+        this.resize()
+    }
+
+    resize() {
+        this.width  = window.innerWidth
+        this.height = window.innerHeight
+
+        this.canvas.setAttribute('width', this.width)
+        this.canvas.setAttribute('height', this.height)
+    }
+
+    clear() {
+        this.engine.clearRect(0, 0, this.width, this.height)
+        this.engine.fillStyle = '#fff'
+        this.engine.fillRect(0, 0, this.width, this.height)
+    }
+
+    addBattery() {
+        const bat = new Battery(this)
+        this.stacks.set(Date.now(), bat)
+    }
+
+    render() {
+
+        if (Math.random() < 0.05) {
+            this.addBattery()
+        }
+
+        this.clear()
+
+        this.stacks.forEach((scene, key) => {
+
+            const rendered = scene.render()
+
+            if (!rendered) {
+                this.stacks.delete(key)
+            }
+        });
+
+        this.handler = requestAnimationFrame(this.render.bind(this))
+    }
+
+    run() {
+        for(let i = 0; i < 7; i++) {
+            this.addBattery()
+        }
+        window.addEventListener('resize', this.resize.bind(this))
+        this.render()
+    }
+
+    stop() {
+        cancelAnimationFrame(this.handler)
+        this.clear()
+    }
+}
+
 document.addEventListener('mouseup', () => documentMouseUp())
-document.addEventListener('touchend', () => { console.log('touchend'); documentMouseUp() })
+document.addEventListener('touchend', () => documentMouseUp())
 
 document.addEventListener('mousemove', e => documentMouseMove(e))
 document.addEventListener('touchmove', e => documentMouseMove(e))
