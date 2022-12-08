@@ -311,7 +311,7 @@ function documentMouseUp() {
             })
 
             if(config.soundsDataBase) {
-                let audio = new Audio('./sounds/trueAnswer.mp3').play()
+                let audio = new Audio('./trueAnswer.mp3').play()
             }
 
             itemStyle(globalItem.elem, config.styles.activation)
@@ -339,7 +339,7 @@ function documentMouseUp() {
             })
 
             if(config.soundsDataBase) {
-                let audio = new Audio('./sounds/falseAnswer.mp3').play()
+                let audio = new Audio('./falseAnswer.mp3').play()
             }
 
             itemStyle(globalItem.elem, config.styles.reactivation)
