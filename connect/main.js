@@ -68,7 +68,9 @@ getAllOfDataBase()
 
 setTimeout(() => {
     zeroing()
-    generateIntegerExamples(-10, 10, config.numberOfExamples)
+    if(config.numberOfExamplesDataBase === 1) generateIntegerExamples(-9, 9, config.numberOfExamples)
+    if(config.numberOfExamplesDataBase === 2) generateIntegerExamples(-99, 99, config.numberOfExamples)
+    if(config.numberOfExamplesDataBase === 3) generateIntegerExamples(-999, 999, config.numberOfExamples)
     coordinateRecording()
     answersUpdate()
     loader.style.opacity = '0'
