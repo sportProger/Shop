@@ -273,7 +273,7 @@ function documentMouseUp() {
                 paint(cord[0], cord[1])
             })
 
-            let audio = new Audio('./sounds/trueAnswer.mp3').play()
+            let audio = new Audio('./trueAnswer.mp3').play()
 
             itemStyle(globalItem.elem, config.styles.activation)
             itemStyle(activeItem, config.styles.activation)
@@ -299,7 +299,7 @@ function documentMouseUp() {
                 paint(cord[0], cord[1])
             })
 
-            let audio = new Audio('./sounds/falseAnswer.mp3').play()
+            let audio = new Audio('./falseAnswer.mp3').play()
 
             itemStyle(globalItem.elem, config.styles.reactivation)
             itemStyle(activeItem, config.styles.reactivation)
