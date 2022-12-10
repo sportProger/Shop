@@ -23,7 +23,7 @@ let
         lineColor: '#333',
         activeItemColor: '#85DA97',
         falseColor: '#E09F9F',
-        lineWidth: 10,
+        lineWidth: 4,
         listBorderWidth: 1,
         itemMargin: 50,
         styles: {
@@ -77,39 +77,35 @@ setTimeout(() => {
     loader.style.zIndex  = '0'
 }, config.loaderTime)
 
-
+//
 // function connectToDataBase() {
-//     let settingsData = {
-//         theme: 'standard',
-//         sounds: true,
-//         numberOfExamples: 2
-//     }
 //     fetch('https://mathpt-a7d23-default-rtdb.firebaseio.com/data.json', {
-//         mode: 'no-cors',
-//         method: 'POST',
 //         headers: {
-//             'Content-Type': 'application/json;charset=utf-8'
-//         },
-//         body: JSON.stringify(settingsData)
+//
+//         }
 //     })
 // }
 
 function getAllOfDataBase() {
-    fetch('https://mathpt-a7d23-default-rtdb.firebaseio.com/data.json', {
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        method: 'GET'
-    }).then(response => {
-        let res = response.json()
-        res.then(result => {
-            let key
-            for (const elemResult in result) { key = elemResult }
-            config.themeDataBase = result[key].theme
-            config.numberOfExamplesDataBase = result[key].numberOfExamples
-            config.soundsDataBase = result[key].sounds
-        })
-    })
+    // fetch('https://mathpt-a7d23-default-rtdb.firebaseio.com/data.json', {
+    //     headers: {
+    //         'Content-Type': 'application/json;charset=utf-8'
+    //     },
+    //     method: 'GET'
+    // }).then(response => {
+    //     let res = response.json()
+    //     res.then(result => {
+    //         // let key
+    //         // for (const elemResult in result) { key = elemResult }
+    //         config.themeDataBase = 'standart'
+    //         config.numberOfExamplesDataBase = 5
+    //         config.soundsDataBase = false
+    //     })
+    // })
+
+    config.themeDataBase = 'standart'
+    config.numberOfExamplesDataBase = 1
+    config.soundsDataBase = false
 }
 
 function random(min, max) {
@@ -313,7 +309,7 @@ function documentMouseUp() {
             })
 
             if(config.soundsDataBase) {
-                let audio = new Audio('trueAnswer.mp3').play()
+                let audio = new Audio('./sounds/trueAnswer.mp3').play()
             }
 
             itemStyle(globalItem.elem, config.styles.activation)
@@ -341,7 +337,7 @@ function documentMouseUp() {
             })
 
             if(config.soundsDataBase) {
-                let audio = new Audio('falseAnswer.mp3').play()
+                let audio = new Audio('./sounds/falseAnswer.mp3').play()
             }
 
             itemStyle(globalItem.elem, config.styles.reactivation)
