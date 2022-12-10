@@ -61,15 +61,23 @@ ul {
     width: 250px;
     height: 60px;
     display: flex;
-    justify-content: center;
+    /*justify-content: flex-start;*/
     align-items: center;
-    border: solid 1px #333;
+    /*border: solid 1px #333;*/
     font-size: 1.5rem;
     font-weight: 500;
     color: #333;
     user-select: none;
     margin-top: 50px;
     transition: .8s;
+}
+
+#examples-list > li {
+    justify-content: flex-start;
+}
+
+#answers-list > li {
+    justify-content: flex-end;
 }
 
 #results {
@@ -81,6 +89,10 @@ ul {
     font-weight: 600;
     letter-spacing: 3px;
     user-select: none;
+}
+
+#results.dark_theme {
+    color: #fafafa;
 }
 
 .good {
