@@ -146,7 +146,7 @@ function generateIntegerExamples(from = 0, to = 10, count = 5) {
             itemFlag = true
             itemStyle(exampleLi, config.styles.activation)
             activeItem = exampleLi
-            exampleLi.style.border = 'solid 1px #333'
+            exampleLi.style.border = 'solid 1px #85DA97'
         }
 
         function elementMouseUp() {
