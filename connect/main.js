@@ -146,12 +146,14 @@ function generateIntegerExamples(from = 0, to = 10, count = 5) {
             itemFlag = true
             itemStyle(exampleLi, config.styles.activation)
             activeItem = exampleLi
+            exampleLi.style.border = 'solid 1px #333'
         }
 
         function elementMouseUp() {
             itemFlag = false
             itemStyle(exampleLi, config.styles.deactivation)
             if(!isMobile()) activeItem = null
+            exampleLi.style.border = 'none'
         }
 
         examplesList.appendChild(exampleLi)
