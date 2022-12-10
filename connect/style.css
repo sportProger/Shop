@@ -58,7 +58,7 @@ ul {
 }
 
 .list > li {
-    width: 250px;
+    width: auto;
     height: 60px;
     display: flex;
     /*justify-content: flex-start;*/
