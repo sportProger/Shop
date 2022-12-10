@@ -61,7 +61,7 @@ ul {
     width: auto;
     height: 60px;
     display: flex;
-    /*justify-content: flex-start;*/
+    justify-content: center;
     align-items: center;
     /*border: solid 1px #333;*/
     font-size: 1.5rem;
@@ -70,14 +70,7 @@ ul {
     user-select: none;
     margin-top: 50px;
     transition: .8s;
-}
-
-#examples-list > li {
-    justify-content: flex-start;
-}
-
-#answers-list > li {
-    justify-content: flex-end;
+    padding: 10px 30px;
 }
 
 #results {
@@ -126,6 +119,7 @@ ul {
 
     #examples-list > li {
         width: auto;
+        border: solid 1px red;
     }
 
     #answers-list {
