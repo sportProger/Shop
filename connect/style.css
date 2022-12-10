@@ -121,11 +121,12 @@ ul {
         padding: 0 30px;
     }
     .list {
-        width: 50%;
+        width: auto;
     }
 
     #examples-list > li {
-        width: 100%;
+        width: auto;
+        border: solid 1px red;
     }
 
     #answers-list {
